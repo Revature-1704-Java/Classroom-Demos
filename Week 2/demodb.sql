@@ -149,4 +149,33 @@ SELECT * FROM PHONE_NUMBERS CROSS JOIN DEPARTMENT;
 /*TRUNCATE: deletes all rows, but keeps columns*/
 TRUNCATE TABLE PERSON;
 
+/*DROP: erases table from existence*/
+DROP TABLE PERSON;
+
+/*Constraints: Primary Key, Foreign Key, Not Null
+    Unique, Default, Check*/
+CREATE TABLE PERSON (
+    P_ID INTEGER PRIMARY KEY,
+    P_NAME VARCHAR2(100) NOT NULL,
+    P_AGE INTEGER CHECK(P_AGE > 18),
+    P_COUNTRY VARCHAR2(100) DEFAULT 'USA',
+    P_SSN NUMBER UNIQUE
+);
+
+INSERT INTO PERSON VALUES (1, 'Sam', 19, '', 1);
+INSERT INTO PERSON(P_ID, P_NAME, P_AGE, P_SSN)
+    VALUES (2, 'John', 20, 2);
+INSERT INTO PERSON VALUES (3, 'Jack', 25, 'Canada', 3);
+
+/*IN operator: allows you to specify values in WHERE,
+    same as multiple OR conditions*/
+SELECT * FROM DEPARTMENT WHERE D_NAME IN ('SALES', 'HR');
+SELECT * FROM EMPLOYEES WHERE E_DEPT IN
+    (SELECT E_DEPT FROM EMPLOYEES WHERE E_DEPT = 1);
+    
+/*EXISTS operator: test for existence, returns true
+    if one or more returned*/
+SELECT * FROM EMPLOYEES WHERE EXISTS
+    (SELECT D_NAME FROM DEPARTMENT WHERE D_ID = 2);    
+
 Commit;

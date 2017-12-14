@@ -176,6 +176,102 @@ SELECT * FROM EMPLOYEES WHERE E_DEPT IN
 /*EXISTS operator: test for existence, returns true
     if one or more returned*/
 SELECT * FROM EMPLOYEES WHERE EXISTS
-    (SELECT D_NAME FROM DEPARTMENT WHERE D_ID = 2);    
+    (SELECT D_NAME FROM DEPARTMENT WHERE D_ID = 2);  
+    
+    
+/*PL/SQL*/
+CREATE TABLE CAVE (
+    Cave_Id INTEGER PRIMARY KEY,
+    Cave_Name VARCHAR2(50),
+    Max_Bears INTEGER DEFAULT 4,
+    CONSTRAINT Unique_Cave_Name UNIQUE (Cave_Name)
+);
+
+CREATE TABLE BEAR_TYPE (
+    Bear_Type_Id INTEGER PRIMARY KEY,
+    Bear_Type_Name VARCHAR2(50)
+);
+
+CREATE TABLE BEAR (
+    Bear_Id INTEGER PRIMARY KEY,
+    Bear_Name VARCHAR2(50),
+    Bear_Age INTEGER,
+    Bear_Weight Integer,
+    Bear_Type_Id INTEGER,
+    Cave_Id INTEGER,
+    CONSTRAINT Check_Bear_Age CHECK (Bear_Age > 0),
+    CONSTRAINT Check_Bear_Weight CHECK (Bear_Weight > 0)
+);
+
+CREATE TABLE BEEHIVE (
+    Beehive_Id INTEGER PRIMARY KEY,
+    Hive_Weight INTEGER DEFAULT 50,
+    CONSTRAINT Check_Hive_Weight CHECK (Hive_Weight > 0)
+);
+
+CREATE TABLE BEAR_BEEHIVE (
+    Bear_Id INTEGER,
+    Beehive_Id INTEGER,
+    CONSTRAINT FK_BearBeehive PRIMARY KEY (Bear_Id, Beehive_Id)
+);
+
+--Create foreign keys
+ALTER TABLE BEAR ADD CONSTRAINT FK_Bear_Type_Id
+FOREIGN KEY (Bear_Type_Id)
+REFERENCES BEAR_TYPE (Bear_Type_Id);
+
+ALTER TABLE BEAR ADD CONSTRAINT FK_Cave_Id
+FOREIGN KEY (Cave_Id)
+REFERENCES CAVE (Cave_Id);
+
+ALTER TABLE BEAR_BEEHIVE ADD CONSTRAINT FK_Bear_Id
+FOREIGN KEY (Bear_Id)
+REFERENCES BEAR (Bear_Id);
+
+ALTER TABLE BEAR_BEEHIVE ADD CONSTRAINT FK_Beehive_Id
+FOREIGN KEY (Beehive_Id)
+REFERENCES BEEHIVE (Beehive_Id);
+
+--Populate
+INSERT INTO CAVE (Cave_Id, Cave_Name, Max_Bears)
+VALUES (1, 'Yosemite', 4);
+INSERT INTO CAVE (Cave_Id, Cave_Name, Max_Bears)
+VALUES (2, 'Yellowstone', 5);
+
+INSERT INTO BEEHIVE VALUES (1, 35);
+INSERT INTO BEEHIVE VALUES (2, 50);
+
+INSERT INTO BEAR_TYPE (Bear_Type_Id, Bear_Type_Name)
+VALUES (1, 'Picnic');
+
+INSERT INTO BEAR (Bear_Id, Bear_Name, Bear_Age, Bear_Weight, Bear_Type_Id, Cave_Id)
+Values (1, 'Yogi', 30, 200, 1, 1);
+INSERT INTO BEAR (Bear_Id, Bear_Name, Bear_Age, Bear_Weight, Bear_Type_Id, Cave_Id)
+Values (2, 'Boo Boo', 20, 100, 1, 1);
+
+INSERT INTO BEAR_BEEHIVE VALUES(1, 2);
+
+/*Sequences*/
+CREATE SEQUENCE SQ_BEAR_PK
+START WITH 3
+INCREMENT BY 2;
+
+--Create before insert trigger
+CREATE OR REPLACE TRIGGER TR_INSERT_BEAR
+BEFORE INSERT ON BEAR
+FOR EACH ROW
+BEGIN
+    SELECT SQ_BEAR_PK.NEXTVAL
+    INTO :NEW.Bear_Id FROM DUAL;
+END;
+/
+
+--Create View to show how many bears per cave
+CREATE VIEW VW_BEARS_PER_CAVE (Location, Total) AS
+SELECT Cave_Name, COUNT(Bear_Id) FROM CAVE, BEAR
+WHERE BEAR.Cave_Id = CAVE.Cave_Id
+GROUP BY Cave_Name;
+
+SELECT * FROM VW_BEARS_PER_CAVE;
 
 Commit;

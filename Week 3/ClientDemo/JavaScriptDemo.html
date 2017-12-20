@@ -3,7 +3,18 @@
   <head>
     <title>JavaScript Demo</title>
   </head>
-  <body>
-    <script src="JavaScriptDemo.js"></script>
+  <body onmousemove="enhancedCursor()">
+    <div id="template"></div>
+    <h1 id="h1" onclick="changeText(this)">Click Me</h1>
+
+    <div id="div1" style="background-color:blue">
+      <h3>This is the outer div</h3>
+      <div id="div2" style="background-color:red">
+        <h4>this is the inner div</h4>
+      </div>
+    </div>
+
+    <div id="cursorplus" style="position:absolute;top:10;left:10;height:200px;width:200px;background-color:aqua"></div>
   </body>
+  <script src="JavaScriptDemo.js"></script>
 </html>

@@ -204,3 +204,18 @@ let jsontext = `{"dogs":[{"name":"Rex","breed":"schnauzer"},{"name":"Lassie","br
 
 let obj = JSON.parse(jsontext);
 console.log(obj);
+
+//AJAX
+let xhr = new XMLHttpRequest();
+
+xhr.onreadystatechange = function() {
+  if (this.readyState == 4 & this.status == 200)
+    console.log ("success!");
+}
+
+//OR xhr.onsuccess
+//OR xhr.onerror
+
+xhr.open('get', 'https://jsonplaceholder.typicode.com/users');
+
+xhr.send();

@@ -1,3 +1,5 @@
-<p>
-  home works!
-</p>
+<div class="row">
+  <div *ngFor="let product of products" class="col-sm-4 col-lg-4 col-md-4">
+    <app-product-item [product]="product"></app-product-item>
+  </div>
+</div>

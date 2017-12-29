@@ -1,0 +1,18 @@
+<p>
+  property binding is denoted by []
+  We specify one-way bindings to DOM properties using square brackets
+  and template expressions.
+
+  The template expressions in quotes to the right of the equals are used to set the DOM properoties in square brackets on the left.
+  [property] = "template expression"
+
+  It can also be used to provite input to child components
+  For example:
+  <!-- 
+    <app-notes [notes]="notes"></app-notes>
+  -->
+</p>
+
+<div [ngStyle]="styleObject" (click)="changeStyles()">
+  Click me to toggle styles
+</div>

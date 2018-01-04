@@ -1,0 +1,66 @@
+package com.revature.beans;
+
+import java.io.Serializable;
+import java.util.*;
+import javax.persistence.*;
+
+@Entity
+@Table(name = "BEAR")
+//@AttributeOverrides({
+//	@AttributeOverride(name="id", column=@Column(name="BEAR_ID"))
+//})
+public class Bear {
+	private static final long serialVersionUID = 1L;
+	
+	@Id
+	@Column(name="BEAR_ID")
+	private int id;
+
+	@Column(name="BEAR_NAME")
+	private String name;
+	
+	@Column(name="BEAR_AGE")
+	private int age;
+	
+	@Column(name="BEAR_WEIGHT")
+	private int weight;
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public int getAge() {
+		return age;
+	}
+
+	public void setAge(int age) {
+		this.age = age;
+	}
+
+	public int getWeight() {
+		return weight;
+	}
+
+	public void setWeight(int weight) {
+		this.weight = weight;
+	}
+	
+	public Bear() {
+		
+	}
+	
+	public Bear(String name, int age, int weight) {
+		this.name = name;
+		this.age = age;
+		this.weight = weight;
+	}
+
+	@Override
+	public String toString() {
+		return "Bear [name=" + name + ", age=" + age + ", weight=" + weight + "]";
+	}
+}

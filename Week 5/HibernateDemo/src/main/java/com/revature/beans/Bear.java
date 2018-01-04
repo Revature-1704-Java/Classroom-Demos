@@ -6,13 +6,12 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "BEAR")
-//@AttributeOverrides({
-//	@AttributeOverride(name="id", column=@Column(name="BEAR_ID"))
-//})
 public class Bear {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
+	@GeneratedValue(strategy=GenerationType.SEQUENCE, generator="bearSeq")
+	@SequenceGenerator(allocationSize=1, name="bearSeq", sequenceName="BEAR_SEQ")
 	@Column(name="BEAR_ID")
 	private int id;
 

@@ -23,6 +23,10 @@ public class Bear {
 	
 	@Column(name="BEAR_WEIGHT")
 	private int weight;
+	
+	@ManyToOne(fetch=FetchType.EAGER)
+	@JoinColumn(name="BEAR_CAVE")
+	Cave cave;
 
 	public String getName() {
 		return name;
@@ -52,14 +56,15 @@ public class Bear {
 		
 	}
 	
-	public Bear(String name, int age, int weight) {
+	public Bear(String name, int age, int weight, Cave cave) {
 		this.name = name;
 		this.age = age;
 		this.weight = weight;
+		this.cave = cave;
 	}
 
 	@Override
 	public String toString() {
-		return "Bear [name=" + name + ", age=" + age + ", weight=" + weight + "]";
+		return "Bear [name=" + name + ", age=" + age + ", weight=" + weight + ", cave=" + cave.getName() + "]";
 	}
 }

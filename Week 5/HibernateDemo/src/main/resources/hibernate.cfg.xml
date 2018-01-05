@@ -21,10 +21,11 @@
 		<property name="hibernate.show_sql">
 			true
 		</property>
-		<!-- <property name="hibernate.hbm2ddl.auto">
-			create
-		</property> -->
+		<property name="hibernate.hbm2ddl.auto">
+			create-drop
+		</property>
 		
 		<mapping class="com.revature.beans.Bear"/>
+		<mapping class="com.revature.beans.Cave"/>
 	</session-factory>
 </hibernate-configuration>

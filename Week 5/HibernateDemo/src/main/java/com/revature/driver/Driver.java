@@ -10,6 +10,7 @@ import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 
 import com.revature.beans.Bear;
+import com.revature.beans.Cave;
 import com.revature.util.HibernateUtil;
 
 public class Driver {
@@ -24,7 +25,7 @@ public class Driver {
 		//System.out.println(b.toString());
 		//System.out.println("Fed bear " + dao.feedBear(bearId, 100));
 		//System.out.println(b.toString());
-		usingCriteria();
+		//usingCriteria();
 		
 
 	}
@@ -33,11 +34,16 @@ public class Driver {
 		Session session = HibernateUtil.getSession();
 		Transaction tx = session.beginTransaction();
 		
-		Bear b1 = new Bear("Winnie", 50, 10);
-		Bear b2 = new Bear("Yogi", 25, 400);
-		Bear b3 = new Bear("Smokey", 100, 300);
-		Bear b4 = new Bear("RevaBear", 2, 600);
+		Cave c1 = new Cave("Gloworm Cave");
+		Cave c2 = new Cave("Howe's Caverns");
 		
+		Bear b1 = new Bear("Winnie", 50, 10, c1);
+		Bear b2 = new Bear("Yogi", 25, 400, c2);
+		Bear b3 = new Bear("Smokey", 100, 300, c1);
+		Bear b4 = new Bear("RevaBear", 2, 600, c2);
+		
+		session.save(c1);
+		session.save(c2);
 		session.save(b1);
 		session.save(b2);
 		session.save(b3);

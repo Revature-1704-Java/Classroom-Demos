@@ -9,6 +9,7 @@ import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 
+import com.revature.beans.Bat;
 import com.revature.beans.Bear;
 import com.revature.beans.Cave;
 import com.revature.util.HibernateUtil;
@@ -42,15 +43,27 @@ public class Driver {
 		Bear b3 = new Bear("Smokey", 100, 300, c1);
 		Bear b4 = new Bear("RevaBear", 2, 600, c2);
 		
+		Bat bat1 = new Bat("Batman", 7, c1);
+		Bat bat2 = new Bat("Manbat", 9, c2);
+		
 		session.save(c1);
 		session.save(c2);
 		session.save(b1);
 		session.save(b2);
 		session.save(b3);
 		session.save(b4);
+		session.save(bat1);
+		session.save(bat2);
+		
+		findBearByName("Winnie", session);
 		
 		tx.commit();
 		session.close();
+	}
+	
+	static void findBearByName(String name, Session session) {
+		List<Bear> bears = session.getNamedQuery("findBearByName").setString("namevar", name).list();
+		System.out.println(bears.toString());
 	}
 
 	@SuppressWarnings("unchecked")

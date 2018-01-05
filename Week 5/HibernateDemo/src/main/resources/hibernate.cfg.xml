@@ -21,11 +21,16 @@
 		<property name="hibernate.show_sql">
 			true
 		</property>
-		<property name="hibernate.hbm2ddl.auto">
-			create-drop
+		<!-- <property name="hibernate.hbm2ddl.auto">
+			update
+		</property> -->
+		<property name="hibernate.cache.provider_class">
+			org.hibernate.cache.EhCacheProvider
 		</property>
 		
 		<mapping class="com.revature.beans.Bear"/>
 		<mapping class="com.revature.beans.Cave"/>
+		<mapping class="com.revature.beans.Bat"/>
+		<mapping class="com.revature.beans.Animal"/>
 	</session-factory>
 </hibernate-configuration>

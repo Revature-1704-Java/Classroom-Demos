@@ -38,6 +38,12 @@ public class Cave implements Serializable{
 		super();
 		this.name = name;
 	}
+	
+	public Cave() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
 
 	@Override
 	public String toString() {

@@ -4,6 +4,13 @@ import java.io.Serializable;
 import java.util.*;
 import javax.persistence.*;
 
+@NamedQueries({
+	@NamedQuery(
+		name="findBearByName",
+		query="from Bear where name = :namevar"
+	)
+})
+
 @Entity
 @Table(name = "BEAR")
 public class Bear {

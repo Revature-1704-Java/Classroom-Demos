@@ -17,5 +17,11 @@
   
   <bean name="personService" class="com.revature.service.PersonService" 
       autowire="byType"/>
+      
+  <!-- Activates Spring annotations -->
+  <context:annotation-config/>
+  
+  <!-- Scans for Spring Beans annotated with @Component/@Service/@Repository -->
+  <context:component-scan base-package="com.revature"/>
 
 </beans>
